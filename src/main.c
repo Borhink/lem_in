@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 06:32:25 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/04 19:46:04 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/05 15:26:00 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		main(void)
 {
 	t_env	e;
 
-	e.rooms = NULL;
-	e.tubes = NULL;
+	e.r = NULL;
+	e.t = NULL;
 	parse_file(&e);
 	return (0);
 }

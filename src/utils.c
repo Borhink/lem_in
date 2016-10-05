@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 11:10:34 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/04 19:21:24 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/05 18:33:17 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,19 @@ t_pos	set_pos(int x, int y)
 	pos.x = x;
 	pos.y = y;
 	return (pos);
+}
+
+int		room_exist(t_list *rooms, char *name, int len)
+{
+	t_room	*tmp;
+
+	while (rooms)
+	{
+		tmp = (t_room*)(rooms->content);
+		if ((len < 0 && ft_strcmp(name, tmp->name))
+		|| (len >= 0 && !ft_strncmp(name, tmp->name, len)))
+			return (1);
+		rooms = rooms->next;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 17:40:42 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/04 19:46:01 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/05 18:39:35 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_pos	t_pos;
 // typedef struct s_img	t_img;
 typedef struct s_room	t_room;
+typedef struct s_tube	t_tube;
 typedef struct s_env	t_env;
 
 struct	s_pos
@@ -59,13 +60,14 @@ struct	s_env
 	// void	*win;
 	// t_img	img;
 	int		ants;
-	t_list	*rooms;
-	t_list	*tubes;
+	t_list	*r;
+	t_list	*t;
 };
 
 void	parse_file(t_env *e);
 
 void	ft_error(char *s);
 t_pos	set_pos(int x, int y);
+int		room_exist(t_list *rooms, char *name, int len);
 
 #endif
