@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 06:32:25 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/05 15:26:00 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/05 23:43:35 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int		main(void)
 	e.r = NULL;
 	e.t = NULL;
 	parse_file(&e);
+	ft_putendl("Launch lem-in");
 	return (0);
 }

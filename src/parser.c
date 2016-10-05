@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 13:45:36 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/05 18:39:59 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/05 23:43:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ static int	parse_tube(t_env *e, char *line)
 	if ((tmp = ft_strchr(line, '-')) && *(tmp + 1) && tmp - line
 	&& room_exist(e->r, line, tmp - line) && room_exist(e->r, tmp + 1, -1))
 	{
-		if (!(t.r1 = ft_strsub(line, 0, tmp - line)))
+		if ((t.r1 = ft_strsub(line, 0, tmp - line)))
 		{
-			if (!(t.r2 = ft_strdup(++tmp)))
+			if ((t.r2 = ft_strdup(++tmp)))
 			{
 				if (!(ft_lstaddend(&(e->t), ft_lstnew(&t, sizeof(t_tube)))))
 					ft_error("Tube's malloc failure");
