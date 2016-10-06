@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 17:40:42 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/05 18:39:35 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/06 21:17:54 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FILLER_H
 
 # include "libft.h"
+#include<stdio.h>
 // # include "mlx.h"
 
 // # define NOTIFY_MASK (1L<<17)
@@ -42,16 +43,18 @@ struct	s_pos
 
 struct	s_room
 {
+	int		id;
 	char	*name;
 	int		type;
 	int		ant;
+	int		dist;
 	t_pos	p;
 };
 
 struct	s_tube
 {
-	char	*r1;
-	char	*r2;
+	int		r1;
+	int		r2;
 };
 
 struct	s_env
@@ -66,8 +69,12 @@ struct	s_env
 
 void	parse_file(t_env *e);
 
-void	ft_error(char *s);
+int		ft_error(char *s);
 t_pos	set_pos(int x, int y);
-int		room_exist(t_list *rooms, char *name, int len);
+int		room_id(t_list *rooms, char *name, int len);
+void	check_start_end(t_list *rooms);
+t_room	*get_room(t_list *rooms, int id);
+
+void	path_finder(t_env *e, t_list *r);
 
 #endif

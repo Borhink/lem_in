@@ -6,13 +6,13 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 13:45:36 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/05 23:43:49 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/06 20:59:14 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	get_ants_nb(t_env *e)
+static int	get_ants_nb(t_env *e)
 {
 	char	*line;
 
@@ -24,6 +24,7 @@ static void	get_ants_nb(t_env *e)
 		if (e->ants < 1)
 			ft_error("Invalid ants number");
 	}
+	return (1);
 }
 
 static int	get_room_type(char *line)
@@ -36,7 +37,7 @@ static int	get_room_type(char *line)
 	return (0);
 }
 
-static int	parse_room(t_env *e, char *line, int type)
+static int	parse_room(t_env *e, char *line, int type, int room)
 {
 	char	*tmp;
 	t_room	r;
@@ -45,7 +46,7 @@ static int	parse_room(t_env *e, char *line, int type)
 		return (0);
 	if ((tmp = ft_strchr(line, ' ')) && *(tmp + 1) && tmp - line)
 	{
-		if (!room_exist(e->r, line, tmp - line) && ft_isdigitcstr(++tmp, ' ')
+		if (!room_id(e->r, line, tmp - line) && ft_isdigitcstr(++tmp, ' ')
 		&& *tmp != ' ' && (r.name = ft_strsub(line, 0, tmp - line - 1)))
 		{
 			r.p.x = ft_atoi(tmp);
@@ -54,15 +55,16 @@ static int	parse_room(t_env *e, char *line, int type)
 				r.p.y = ft_atoi(tmp);
 				r.ant = 0;
 				r.type = type;
+				r.id = room;
+				r.dist = 0;
 				if (!(ft_lstaddend(&(e->r), ft_lstnew(&r, sizeof(t_room)))))
 					ft_error("Room's malloc failure");
-				return (1);
+				return (room + 1);
 			}
 		}
 	}
 	free(line);
-	ft_error("Room's wrong format");
-	return (-1);
+	return (ft_error("Room's wrong format"));
 }
 
 static int	parse_tube(t_env *e, char *line)
@@ -71,17 +73,13 @@ static int	parse_tube(t_env *e, char *line)
 	t_tube	t;
 
 	if ((tmp = ft_strchr(line, '-')) && *(tmp + 1) && tmp - line
-	&& room_exist(e->r, line, tmp - line) && room_exist(e->r, tmp + 1, -1))
+	&& room_id(e->r, line, tmp - line) && room_id(e->r, tmp + 1, -1))
 	{
-		if ((t.r1 = ft_strsub(line, 0, tmp - line)))
-		{
-			if ((t.r2 = ft_strdup(++tmp)))
-			{
-				if (!(ft_lstaddend(&(e->t), ft_lstnew(&t, sizeof(t_tube)))))
-					ft_error("Tube's malloc failure");
-				return (1);
-			}
-		}
+		t.r1 = room_id(e->r, line, tmp - line);
+		t.r2 = room_id(e->r, ++tmp, -1);
+		if (!(ft_lstaddend(&(e->t), ft_lstnew(&t, sizeof(t_tube)))))
+			ft_error("Tube's malloc failure");
+		return (1);
 	}
 	return (0);
 }
@@ -92,11 +90,10 @@ void		parse_file(t_env *e)
 	int		type;
 	int		room;
 
-	get_ants_nb(e);
-	room = 1;
+	room = get_ants_nb(e);
+	type = 0;
 	while (get_next_line(0, &line) > 0 && *line)
 	{
-		type = 0;
 		if (ft_strprefix(line, "##"))
 			type = get_room_type(line);
 		else if (*line == '#')
@@ -104,10 +101,11 @@ void		parse_file(t_env *e)
 		else
 		{
 			if (room)
-				room = parse_room(e, line, type);
+				room = parse_room(e, line, type, room);
 			if (!room && !parse_tube(e, line))
 				break ;
 			ft_putendl(line);
+			type = 0;
 		}
 		free(line);
 	}
