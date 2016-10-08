@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 13:45:36 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/06 20:59:14 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 17:02:19 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	parse_room(t_env *e, char *line, int type, int room)
 				r.type = type;
 				r.id = room;
 				r.dist = 0;
+				r.path = 0;
 				if (!(ft_lstaddend(&(e->r), ft_lstnew(&r, sizeof(t_room)))))
 					ft_error("Room's malloc failure");
 				return (room + 1);

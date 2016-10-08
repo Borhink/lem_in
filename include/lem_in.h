@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 17:40:42 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/06 21:17:54 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 19:23:33 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ struct	s_pos
 struct	s_room
 {
 	int		id;
+	int		path;
 	char	*name;
 	int		type;
 	int		ant;
@@ -62,7 +63,10 @@ struct	s_env
 	// void	*mlx;
 	// void	*win;
 	// t_img	img;
+	int		in;
 	int		ants;
+	int		paths;
+	int		left;
 	t_list	*r;
 	t_list	*t;
 };
@@ -76,5 +80,7 @@ void	check_start_end(t_list *rooms);
 t_room	*get_room(t_list *rooms, int id);
 
 void	path_finder(t_env *e, t_list *r);
+void	get_out(t_env *e, t_list *r);
+void	move_path(t_env *e, t_room *cur, int path);
 
 #endif

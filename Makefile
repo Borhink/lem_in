@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2016/10/06 21:18:01 by qhonore          ###   ########.fr        #
+#    Updated: 2016/10/08 17:45:39 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./include/ ./libft/includes/
 LIB_PATH = ./libft/
 
-SRC_NAME = main.c utils.c parser.c finder.c
+SRC_NAME = main.c utils.c parser.c finder.c move.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = -lft
 NAME = lem-in
