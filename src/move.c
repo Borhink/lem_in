@@ -6,15 +6,18 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/08 16:09:53 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/08 19:24:28 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 23:48:55 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void		print_ant(t_room *cur)
+static void		print_ant(t_env *e, t_room *cur)
 {
-	ft_putchar(' ');
+	if (e->first)
+		e->first = 0;
+	else
+		ft_putchar(' ');
 	ft_putchar('L');
 	ft_putnbr(cur->ant);
 	ft_putchar('-');
@@ -48,7 +51,7 @@ static void		type_one(t_env *e, t_room *cur, int path)
 	if (e->in < e->ants)
 	{
 		cur->ant = ++(e->in);
-		print_ant(cur);
+		print_ant(e, cur);
 		if (cur->type == 2)
 		{
 			--(e->left);
@@ -73,7 +76,7 @@ void			move_path(t_env *e, t_room *cur, int path)
 					--(e->left);
 				cur->ant = room->ant;
 				room->ant = 0;
-				print_ant(cur);
+				print_ant(e, cur);
 			}
 			move_path(e, room, path);
 			return ;
@@ -93,6 +96,7 @@ void			get_out(t_env *e, t_list *r)
 		while (r)
 		{
 			room = (t_room*)(r->content);
+			e->first = 1;
 			if (room->type == 2)
 			{
 				path = 0;

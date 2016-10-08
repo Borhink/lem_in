@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2016/10/08 17:45:39 by qhonore          ###   ########.fr        #
+#    Updated: 2016/10/08 22:03:48 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./include/ ./libft/includes/
 LIB_PATH = ./libft/
 
-SRC_NAME = main.c utils.c parser.c finder.c move.c
+SRC_NAME = main.c utils.c parser.c finder.c move.c utils2.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = -lft
 NAME = lem-in
@@ -28,7 +28,6 @@ LIB = $(addprefix -L,$(LIB_PATH))
 
 CC = gcc -Ofast
 CFLAGS = -Wall -Wextra -Werror
-# FRAMEWORK = -framework OpenGL -framework AppKit
 
 all: lib
 	@echo "\033[37;44m Make $(NAME) \033[0m"
@@ -44,8 +43,6 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INCLUDE)
 lib:
 	@echo "\033[37;44m Make libft \033[0m"
 	@make -C ./libft/
-	# @echo "\033[37;44m Make minilibx \033[0m"
-	# @make -C ./minilibx_macos/
 
 clean:
 	rm -rf $(OBJ) $(OBJ_PATH)
@@ -53,7 +50,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	@make -C ./libft/ fclean
-	# @make -C ./minilibx_macos/ clean
 
 re: fclean all
 

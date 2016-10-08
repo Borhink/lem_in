@@ -6,19 +6,11 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 11:10:34 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/06 20:40:12 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 23:16:46 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int		ft_error(char *s)
-{
-	ft_putstr("ERROR: ");
-	ft_putendl(s);
-	exit(-1);
-	return (-1);
-}
 
 t_pos	set_pos(int x, int y)
 {
@@ -58,24 +50,24 @@ t_room	*get_room(t_list *rooms, int id)
 	return (NULL);
 }
 
-void	check_start_end(t_list *rooms)
+void	check_start_end(t_env *e, t_list *rooms)
 {
 	t_room	*tmp;
-	int		s;
-	int		e;
+	int		start;
+	int		end;
 
-	s = 0;
-	e = 0;
+	start = 0;
+	end = 0;
 	while (rooms)
 	{
 		tmp = (t_room*)(rooms->content);
 		if (tmp->type == 1)
-			s = 1;
+			start = 1;
 		else if (tmp->type == 2)
-			e = 1;
-		if (e && s)
+			end = 1;
+		if (end && start)
 			return ;
 		rooms = rooms->next;
 	}
-	ft_error("Missing start or end");
+	ft_error(e, "Missing start or end");
 }

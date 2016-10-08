@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 20:13:05 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/04 20:01:18 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 23:20:58 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_isdigit(int c)
 		return (0);
 }
 
-int				ft_isdigitstr(char *s)
+int		ft_isdigitstr(char *s)
 {
 	if (!s || !(*s))
 		return (0);
@@ -31,7 +31,7 @@ int				ft_isdigitstr(char *s)
 	return (1);
 }
 
-int				ft_isdigitcstr(char *s, char c)
+int		ft_isdigitcstr(char *s, char c)
 {
 	if (!s || !(*s))
 		return (0);

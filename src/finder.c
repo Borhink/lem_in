@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/06 18:21:27 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/08 17:01:43 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/08 23:14:25 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void			path_finder(t_env *e, t_list *r)
 		r = r->next;
 	}
 	if (!e->paths)
-		ft_error("0 path found");
+		ft_error(e, "0 path found");
 }
