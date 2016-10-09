@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 17:40:42 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 00:02:05 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/09 15:45:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ struct	s_env
 	int		paths;
 	int		left;
 	int		first;
+	int		vpath;
+	int		step;
+	int		info;
+	char	*near;
+	int		turn;
 };
 
 int		ft_error(t_env *e, char *s);
@@ -62,10 +67,12 @@ int		room_id(t_list *rooms, char *name, int len);
 void	check_start_end(t_env *e, t_list *rooms);
 t_room	*get_room(t_list *rooms, int id);
 int		get_room_type(t_env *e, char *line);
+void	print_info(t_env *e, t_room *cur, t_room *next);
 
 void	path_finder(t_env *e, t_list *r);
 void	get_out(t_env *e, t_list *r);
 void	move_path(t_env *e, t_room *cur, int path);
 void	parse_file(t_env *e, int type);
+t_room	*get_path_way(t_env *e, t_room *r, t_list *t, int path);
 
 #endif

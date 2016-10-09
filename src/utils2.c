@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 11:10:34 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 00:03:10 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/09 15:55:06 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,38 @@ int		get_room_type(t_env *e, char *line)
 		return (1);
 	else if (!ft_strcmp(line + 2, "end"))
 		return (2);
+	else if (!ft_strcmp(line + 2, "paths"))
+		e->vpath = 1;
+	else if (!ft_strcmp(line + 2, "step"))
+		e->step = 1;
+	else if (!ft_strcmp(line + 2, "info"))
+		e->info = 1;
 	return (0);
+}
+
+void	print_info(t_env *e, t_room *cur, t_room *next)
+{
+	if (e->first)
+	{
+		ft_putstr("\033[32m==== TURN ");
+		ft_putnbr(e->turn);
+		ft_putstr(" ====\033[0m\n");
+		e->first = 0;
+	}
+	ft_putstr("\033[33mAnt ");
+	ft_putnbr(next->ant);
+	ft_putstr(":\n\033[0mLeave room \033[33m");
+	ft_putstr(cur->name);
+	ft_putstr("\033[0m to \033[33m");
+	ft_putstr(next->name);
+	ft_putstr("\033[0m\nThe nearest end is \033[31m");
+	ft_putstr(e->near);
+	ft_putstr("\033[0m (\033[33m");
+	ft_putnbr(next->dist);
+	if (next->dist < 2)
+		ft_putstr("\033[0m turn to go)\n\n");
+	else
+		ft_putstr("\033[0m turns to go)\n\n");
+	if (e->step)
+		usleep(1500000);
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 13:45:36 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 00:02:59 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/09 11:51:56 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_ants_nb(t_env *e)
 
 	if (get_next_line(0, &line) > 0)
 	{
-		if (!(ft_lstaddend(&(e->f), ft_lstnew(line, sizeof(char*)))))
+		if (!(ft_lstaddend(&(e->f), ft_lstnew(line, ft_strlen(line) + 1))))
 			ft_error(e, "File's malloc failure");
 		e->ants = (ft_isdigitstr(line) ? ft_atoi(line) : 0);
 		free(line);
@@ -62,7 +62,8 @@ static int	parse_room(t_env *e, char *line, int type, int id)
 		}
 	}
 	free(line);
-	return (ft_error(e, "Room's wrong format"));
+	tmp = ft_strjoin("Room's wrong format -> ", line);
+	return (ft_error(e, tmp));
 }
 
 static int	parse_tube(t_env *e, char *line)
@@ -92,16 +93,15 @@ void		parse_file(t_env *e, int type)
 	{
 		if (ft_strprefix(line, "##"))
 			type = get_room_type(e, line);
-		else if (*line == '#'
-		&& !(ft_lstaddend(&(e->f), ft_lstnew(line, sizeof(char*)))))
-			ft_error(e, "File's malloc failure");
+		else if (*line == '#')
+			ft_lstaddend(&(e->f), ft_lstnew(line, ft_strlen(line) + 1));
 		else
 		{
 			if (room)
 				room = parse_room(e, line, type, room);
 			if (!room && !parse_tube(e, line))
 				break ;
-			if (!(ft_lstaddend(&(e->f), ft_lstnew(line, sizeof(char*)))))
+			if (!(ft_lstaddend(&(e->f), ft_lstnew(line, ft_strlen(line) + 1))))
 				ft_error(e, "File's malloc failure");
 			type = 0;
 		}

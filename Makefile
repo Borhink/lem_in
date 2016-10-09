@@ -6,7 +6,7 @@
 #    By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/10 16:05:27 by qhonore           #+#    #+#              #
-#    Updated: 2016/10/08 22:03:48 by qhonore          ###   ########.fr        #
+#    Updated: 2016/10/09 14:01:58 by qhonore          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
 LIB = $(addprefix -L,$(LIB_PATH))
 
-CC = gcc -Ofast
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 all: lib
@@ -36,7 +36,7 @@ all: lib
 $(NAME): $(OBJ)
 	$(CC) $(LIB) $(LIB_NAME) $(FRAMEWORK) $^ -o $@
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INCLUDE)
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c $(DEP) 
 	@mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 

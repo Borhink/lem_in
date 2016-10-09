@@ -6,13 +6,13 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/08 16:09:53 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/08 23:48:55 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/09 15:55:10 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void		print_ant(t_env *e, t_room *cur)
+static void	print_ant(t_env *e, t_room *cur)
 {
 	if (e->first)
 		e->first = 0;
@@ -22,9 +22,11 @@ static void		print_ant(t_env *e, t_room *cur)
 	ft_putnbr(cur->ant);
 	ft_putchar('-');
 	ft_putstr(cur->name);
+	if (e->step)
+		usleep(500000);
 }
 
-static t_room	*get_connected(t_env *e, t_room *r, t_list *t, int path)
+t_room		*get_path_way(t_env *e, t_room *r, t_list *t, int path)
 {
 	t_room	*tmp;
 	t_tube	*tube;
@@ -46,12 +48,12 @@ static t_room	*get_connected(t_env *e, t_room *r, t_list *t, int path)
 	return (NULL);
 }
 
-static void		type_one(t_env *e, t_room *cur, int path)
+static void	type_one(t_env *e, t_room *room, t_room *cur, int path)
 {
 	if (e->in < e->ants)
 	{
 		cur->ant = ++(e->in);
-		print_ant(e, cur);
+		e->info ? print_info(e, room, cur) : print_ant(e, cur);
 		if (cur->type == 2)
 		{
 			--(e->left);
@@ -60,23 +62,23 @@ static void		type_one(t_env *e, t_room *cur, int path)
 	}
 }
 
-void			move_path(t_env *e, t_room *cur, int path)
+void		move_path(t_env *e, t_room *cur, int path)
 {
 	t_room	*room;
 
-	while ((room = get_connected(e, cur, e->t, path)))
+	while ((room = get_path_way(e, cur, e->t, path)))
 	{
-		if (room->type == 1)
-			return (type_one(e, cur, path));
+		if ((cur->type == 2 || !cur->ant) && room->type == 1)
+			return (type_one(e, room, cur, path));
 		else
 		{
-			if (room->ant > 0)
+			if ((cur->type == 2 || !cur->ant) && room->ant > 0)
 			{
 				if (cur->type == 2)
 					--(e->left);
 				cur->ant = room->ant;
 				room->ant = 0;
-				print_ant(e, cur);
+				e->info ? print_info(e, room, cur) : print_ant(e, cur);
 			}
 			move_path(e, room, path);
 			return ;
@@ -84,13 +86,14 @@ void			move_path(t_env *e, t_room *cur, int path)
 	}
 }
 
-void			get_out(t_env *e, t_list *r)
+void		get_out(t_env *e, t_list *r)
 {
 	t_room	*room;
 	int		path;
 
 	e->in = 0;
 	e->left = e->ants;
+	e->turn = 1;
 	while (e->left)
 	{
 		while (r)
@@ -100,6 +103,7 @@ void			get_out(t_env *e, t_list *r)
 			if (room->type == 2)
 			{
 				path = 0;
+				e->near = room->name;
 				while (++path <= e->paths)
 					move_path(e, room, path);
 			}
@@ -107,5 +111,6 @@ void			get_out(t_env *e, t_list *r)
 		}
 		r = e->r;
 		ft_putchar('\n');
+		++e->turn;
 	}
 }
