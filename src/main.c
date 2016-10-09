@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 06:32:25 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 15:48:52 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/09 15:59:48 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,3 @@ int			main(void)
 		ft_putstr("After a long adventure, we finaly leaved the anthill !\n");
 	return (0);
 }
-
-//multi end start OK
-//algo multi chemin OK
-//visu des chemins OK
-//coup par coup OK
-//Detail
