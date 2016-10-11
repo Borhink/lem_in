@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/28 06:32:25 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 15:59:48 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/11 14:40:33 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int			main(void)
 	ft_putchar('\n');
 	print_paths(&e, e.r, 0);
 	get_out(&e, e.r);
+	free_all(e.r, e.t, e.f, NULL);
 	if (e.info)
-		ft_putstr("After a long adventure, we finaly leaved the anthill !\n");
+		ft_putstr("After a long adventure, we finaly leave the anthill !\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qhonore <qhonore@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/04 13:45:36 by qhonore           #+#    #+#             */
-/*   Updated: 2016/10/09 11:51:56 by qhonore          ###   ########.fr       */
+/*   Updated: 2016/10/11 14:38:49 by qhonore          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static int	parse_room(t_env *e, char *line, int type, int id)
 		}
 	}
 	free(line);
-	tmp = ft_strjoin("Room's wrong format -> ", line);
-	return (ft_error(e, tmp));
+	return (ft_error(e, "Room's wrong format"));
 }
 
 static int	parse_tube(t_env *e, char *line)
